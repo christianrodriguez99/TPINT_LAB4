@@ -1,0 +1,120 @@
+create database `bd_tpintegrador`;
+CREATE TABLE `bd_tpintegrador`.`clientes` (
+  `DNI` INT NOT NULL,
+  `cuil` INT NOT NULL,
+  `nombre` VARCHAR(45) NOT NULL,
+  `apellido` VARCHAR(45) NOT NULL,
+  `email` VARCHAR(45) NOT NULL,
+  `sexo` VARCHAR(10) NOT NULL,
+  `nacionalidad` VARCHAR(45) NOT NULL,
+  `fechaNacimiento` DATE NOT NULL,
+  `direccion` VARCHAR(45) NOT NULL,
+  `localidad` VARCHAR(45) NOT NULL,
+  `provincia` VARCHAR(45) NOT NULL,
+  `activo` boolean NOT NULL,
+  PRIMARY KEY (`DNI`));
+
+CREATE TABLE `bd_tpintegrador`.`usuarios` (
+  `DNI` INT NOT NULL,
+  `tipoUsuario` INT NOT NULL,
+   `contraseña` VARCHAR(45) NULL,
+  PRIMARY KEY (`DNI`));
+
+CREATE TABLE `bd_tpintegrador`.`tipo_usuario` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+  
+
+
+CREATE TABLE `bd_tpintegrador`.`cuentas` (
+  `nroCuenta` INT NOT NULL AUTO_INCREMENT,
+  `DNICliente` INT NOT NULL,
+  `tipoCuenta` INT NULL,
+  `fechaCreacion` DATE NULL,
+  `cbu` INT NULL,
+  `saldo` DECIMAL(15,2) NULL,
+  PRIMARY KEY (`nroCuenta`));
+
+CREATE TABLE `bd_tpintegrador`.`tipocuenta` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `bd_tpintegrador`.`prestamos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `dni` int null,
+  `nroCuenta` INT NULL,
+  `importePedido` DECIMAL(15,2) NULL,
+  `importeAPagar` DECIMAL(15,2) NULL,
+  `fecha` DATE NULL,
+  `estado` varchar(50) NULL,
+  `cuotasRestantes` INT NULL,
+  `cuotasTotales` INT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `bd_tpintegrador`.`cuotas` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `valorCuota` DECIMAL(15,2) NOT NULL,
+  `nroCuota` INT NULL,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `bd_tpintegrador`.`transferencias` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nroCuenta` INT NULL,
+  `cuentaDestino` INT NULL,
+  `importe` DECIMAL(15,2) NULL,
+  `fecha` DATETIME NULL,
+  `cbu` int null,
+  PRIMARY KEY (`id`));
+
+CREATE TABLE `bd_tpintegrador`.`movimientos` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nroCuenta` INT NULL,
+  `tipoMovimiento` INT NULL,
+  `fecha` DATETIME NULL,
+  `importe` DECIMAL(15,2) NULL,
+  `Concepto` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+
+ALTER TABLE `bd_tpintegrador`.`movimientos` 
+CHANGE COLUMN `nroCuenta` `nroCuenta` INT(11) NOT NULL ,
+CHANGE COLUMN `tipoMovimiento` `tipoMovimiento` INT(11) NOT NULL ,
+CHANGE COLUMN `importe` `importe` DECIMAL(15,2) NOT NULL ;
+
+CREATE TABLE `bd_tpintegrador`.`tipomovimiento` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `descripcion` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`));
+  
+use bd_tpintegrador;
+ALTER TABLE `usuarios` ADD CONSTRAINT usuarios_id_refs FOREIGN KEY (`tipoUsuario`) REFERENCES `tipo_Usuario` (`id`);
+ALTER TABLE `clientes` ADD CONSTRAINT clientes_id_refs FOREIGN KEY (`DNI`) REFERENCES `usuarios` (`DNI`);
+ALTER TABLE `cuentas` ADD CONSTRAINT cuentas_id_refs FOREIGN KEY (`DNICliente`) REFERENCES `clientes` (`DNI`);
+ALTER TABLE `cuentas` ADD CONSTRAINT tipoCuenta_id_refs FOREIGN KEY (`tipoCuenta`) REFERENCES `tipocuenta` (`id`);
+ALTER TABLE `transferencias` ADD CONSTRAINT transferencias_id_refs FOREIGN KEY (`nroCuenta`) REFERENCES `cuentas` (`nroCuenta`);
+ALTER TABLE `movimientos` ADD CONSTRAINT mov_id_refs FOREIGN KEY (`nroCuenta`) REFERENCES `cuentas` (`nroCuenta`);
+ALTER TABLE `movimientos` ADD CONSTRAINT movimientos_id_refs FOREIGN KEY (`tipoMovimiento`) REFERENCES `tipomovimiento` (`id`);
+ALTER TABLE `prestamos` ADD CONSTRAINT pretamos_id_refs FOREIGN KEY (`nroCuenta`) REFERENCES `cuentas` (`nroCuenta`);
+  
+  
+insert into tipo_usuario(descripcion) values("admin");
+insert into tipo_usuario(descripcion) values("cliente");
+insert into tipocuenta(descripcion) values("Caja de ahorro");
+insert into tipocuenta(descripcion) values("Cuenta corriente");
+insert into tipomovimiento(descripcion) values("Solicitud de prestamo");
+insert into tipomovimiento(descripcion) values("Pago de prestamo");
+insert into tipomovimiento(descripcion) values("Prestamo aceptado");
+insert into tipomovimiento(descripcion) values("Prestamo denegado");
+insert into tipomovimiento(descripcion) values("Transferencia recibida");
+insert into tipomovimiento(descripcion) values("Transferencia realizada");
+
+     
+insert into usuarios(dni,tipoUsuario,contraseña) values(41956008,1,3328);
+insert into usuarios(dni,tipoUsuario,contraseña) values(41956010,2,3328);
+insert into usuarios(dni,tipoUsuario,contraseña) values(1234,1,1234);
+insert into usuarios(dni,tipoUsuario,contraseña) values(1122,2,3328);
+insert into clientes(dni,cuil,nombre,apellido,email,sexo,nacionalidad,fechaNacimiento,direccion,localidad,provincia,activo) values (41956008,20419,"Christian","Rodriguez","christiansrodriguez@gmail.com","Hombre","Argentina",07/06/1999,"Mendoza","Pacheco","Bs As",true);
+insert into clientes(dni,cuil,nombre,apellido,email,sexo,nacionalidad,fechaNacimiento,direccion,localidad,provincia,activo) values (41956010,20419,"Hernan","Rodriguez","hernan@gmail.com","Hombre","Argentina",07/06/1999,"Mendoza","Pacheco","Bs As",true);
+insert into clientes(dni,cuil,nombre,apellido,email,sexo,nacionalidad,fechaNacimiento,direccion,localidad,provincia,activo) values (1122,20419,"Damian","Rodriguez","damian@gmail.com","Hombre","Argentina",07/06/1999,"Mendoza","Pacheco","Bs As",true);
+insert into clientes(dni,cuil,nombre,apellido,email,sexo,nacionalidad,fechaNacimiento,direccion,localidad,provincia,activo) values (1234,12341234,"Tamara","Admin","tamara@gmail.com","Mujer","Argentina",07/06/1999,"Mendoza","Pacheco","Bs As",true);

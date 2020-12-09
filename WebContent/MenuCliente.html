@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<br>  
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Banco    </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="InicioCliente.jsp">Inicio  <span class="sr-only">(current)</span></a>
+      </li>
+	<li class="nav-item">
+        <a class="nav-link" href="MisDatos.jsp">Datos personales</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Transferencia.jsp">Transferir</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ListarMovimientos.jsp">Movimientos</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="InicioCliente.jsp" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Prestamos
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="SolicitarPrestamo.jsp">Pedir prestamo</a>
+          <a class="dropdown-item" href="ListarPrestamos.jsp">Listar mis prestamos</a>
+          <a class="dropdown-item" href="PagarPrestamos.jsp">Pagar mis prestamos</a>
+        </div>
+      </li>
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="InicioCliente.jsp" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Mis cuentas
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="ListarCuentas.jsp">Ver mis cuentas</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="Login.jsp">Cerrar sesion</a>
+      </li>
+    </ul>
+    
+  </div>
+</nav>
+</body>
+</html>
