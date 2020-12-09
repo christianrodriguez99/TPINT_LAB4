@@ -20,6 +20,7 @@ Ingrese su clave: <input type="password" name="txtClave"  class="form-control" /
 </form>
 
 <%
+
     boolean ingresar;
 	if (request.getAttribute("encontroUsuario")!=null)
 	{

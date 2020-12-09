@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<jsp:include page="MenuAdmin.html"></jsp:include>
+<jsp:include page="MenuCliente.html"></jsp:include>
 
 <h1>Transferencia por cbu</h1> <br>
 Ingrese los datos correspondiente para el nuevo registro:
